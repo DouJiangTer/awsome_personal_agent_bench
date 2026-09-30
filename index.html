@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Awesome Personal Agent Bench</title>
+<style>
+/* Layout: sticky header with language switch, single reading column, two link cards, tables in scroll boxes */
+:root{--bg:#f7f7f4;--fg:#1c1d1f;--mut:#5d6066;--line:#dcddd8;--card:#ffffff;--code:#eeeee9;--acc:#2456a8;--accfg:#ffffff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151618;--fg:#e8e8e4;--mut:#a0a3a8;--line:#33353a;--card:#1d1f22;--code:#25272b;--acc:#8ab4f0;--accfg:#101216;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#151618;--fg:#e8e8e4;--mut:#a0a3a8;--line:#33353a;--card:#1d1f22;--code:#25272b;--acc:#8ab4f0;--accfg:#101216;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+html[lang="en"] [data-l="zh"],html[lang="zh"] [data-l="en"]{display:none!important}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar div{max-width:820px;margin:0 auto;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.bar b{font-size:.95rem}
+.sw{display:flex;flex:none;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.sw button{font:inherit;font-size:.85rem;padding:5px 14px;white-space:nowrap;border:0;background:transparent;color:var(--fg);cursor:pointer}
+.sw button[aria-pressed="true"]{background:var(--acc);color:var(--accfg)}
+.sw button:focus-visible,a:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+main{max-width:820px;margin:0 auto;padding:24px 16px 72px}
+h1{font-size:2rem;line-height:1.25;margin:8px 0 10px;text-wrap:balance}
+h2{font-size:1.25rem;margin:38px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+p,li{max-width:70ch}li{margin:6px 0}
+.lead{font-size:1.08rem;color:var(--mut)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:12px;margin:16px 0}
+.cards a{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;color:var(--fg);text-decoration:none;min-width:0}
+.cards a:hover{border-color:var(--acc)}
+.cards strong{display:block;color:var(--acc)}.cards span{font-size:.9rem;color:var(--mut)}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--card);margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:.9rem}th,td{padding:7px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--code)}tr:last-child td{border-bottom:0}td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+code{background:var(--code);padding:1px 6px;border-radius:4px;font-size:.88em}
+a{color:var(--acc)}
+.note{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:6px;padding:10px 14px;margin:16px 0}
+.mut{color:var(--mut);font-size:.88rem}
+</style>
+</head>
+<body>
+<div class="bar"><div><b>Awesome Personal Agent Bench</b>
+<div class="sw" role="group" aria-label="Language / 语言"><button id="b-en" type="button" aria-pressed="true">EN</button><button id="b-zh" type="button" aria-pressed="false">中文</button></div></div></div>
+<main>
+
+<h1 data-l="en">Which personal-agent capabilities do existing benchmarks actually test?</h1>
+<h1 data-l="zh">现有 benchmark 到底测了哪些个人 agent 能力？</h1>
+<p class="lead" data-l="en">We took Meta Muse's personal-assistant capabilities as a baseline, pulled the task lists of 17 agent benchmarks, and coded every task (1,897 in total) against a 23-code capability codebook, keeping the quoted evidence for each label. This page is the entry point to the coverage matrix, the per-cell examples and the review materials.</p>
+<p class="lead" data-l="zh">我们以 Meta Muse 的个人助手能力为基线，拉取了 17 个 agent benchmark 的任务清单，按 23 个能力码对每个任务（共 1,897 个）逐条编码，并保留每个标签的原文证据。本页是覆盖矩阵、逐格示例和复核材料的入口。</p>
+
+<div class="cards">
+<a href="core_cell_examples.html"><strong data-l="en">Per-cell examples →</strong><strong data-l="zh">逐格示例 →</strong>
+<span data-l="en">The coverage matrix restricted to personal-relevant (core) tasks. Click any cell to see one example task with its evidence highlighted.</span>
+<span data-l="zh">仅统计个人相关（core）任务的覆盖矩阵。点击任意格子，查看一个示例任务及高亮的证据。</span></a>
+<a href="benchmark-coding-viewer.html"><strong data-l="en">Task browser →</strong><strong data-l="zh">任务浏览器 →</strong>
+<span data-l="en">All 1,897 coded tasks. Filter by benchmark, capability code, relevance, or coder disagreement.</span>
+<span data-l="zh">全部 1,897 个已编码任务。可按 benchmark、能力码、相关度或编码员分歧过滤。</span></a>
+</div>
+
+<h2 data-l="en">Headline findings</h2><h2 data-l="zh">主要发现</h2>
+<ul data-l="en">
+<li><b>More tasks does not mean more personal-agent tasks.</b> Only 869 of 1,897 tasks (46%) are mainly about the user's own communication, schedule, shopping and travel, or personal data; 494 (26%) touch none of the 23 capabilities.</li>
+<li><b>Well covered:</b> email (10 benchmarks with at least 3 tasks), calendar (12), web actions and ordering, preference memory, prompt injection.</li>
+<li><b>Thin or outside personal settings:</b> delegated-authority and consent checks (112 tasks, 80 of them from MasDrift's enterprise workflows; 39 in personal settings), self-report honesty (26 tasks, 5 in personal settings), background monitoring (107 tasks, 100 from SentinelBench's synthetic pages), negotiation (135 tasks, all from two game simulations).</li>
+<li><b>Combination queries return zero:</b> shopping × authorization or risky actions, negotiation × authorization or honesty, background monitoring × failure reporting. Health/finance data × any safety or privacy code returns 1 task.</li>
+<li><b>Two limits of task lists:</b> problems such as a client app reading data the user refused it access to leave no trace in benchmark tasks, and the benchmarks evaluate models inside open-source agent harnesses, not hosted consumer products.</li>
+</ul>
+<ul data-l="zh">
+<li><b>任务多不等于个人 agent 任务多。</b>1,897 个任务里只有 869 个（46%）主体是用户自己的通信、日程、购物出行或个人数据；494 个（26%）不涉及 23 个能力中的任何一个。</li>
+<li><b>覆盖较好：</b>邮件（10 个 benchmark 各有至少 3 个任务）、日历（12 个）、网页操作与下单、偏好记忆、提示注入。</li>
+<li><b>单薄，或不在个人场景：</b>委派授权与同意（112 个任务，其中 80 个来自 MasDrift 的企业流程，个人场景仅 39 个）、自述真实性（26 个，个人场景 5 个）、后台监控（107 个，100 个来自 SentinelBench 的合成网页）、议价（135 个，全部来自两个博弈模拟）。</li>
+<li><b>组合查询命中为 0：</b>购物 × 授权或风险操作、议价 × 授权或诚实、后台监控 × 故障上报。健康/财务数据 × 任一安全或隐私码只命中 1 个任务。</li>
+<li><b>任务清单的两个局限：</b>客户端应用越过用户拒绝的授权去读取数据这类问题，不会在 benchmark 任务里留下痕迹；这些 benchmark 评的是开源 agent 框架里的模型，而不是托管的消费级产品。</li>
+</ul>
+
+<h2 data-l="en">How the coding was done</h2><h2 data-l="zh">编码是怎么做的</h2>
+<ol data-l="en">
+<li><b>Collect.</b> Task lists were pulled from public repositories, datasets and paper appendices. 11 benchmarks are full lists, 6 are samples.</li>
+<li><b>Codebook.</b> 23 capability codes (messaging, email, calendar, browser, shopping, booking, negotiation, planning, background monitoring, proactivity, memory, health/finance data, tool building, five safety sub-codes, local files, third parties, multimodal, self-report honesty, failure recovery). A label needs the task to require the capability or explicitly grade it, plus a quoted evidence snippet.</li>
+<li><b>Two independent coders</b> (two isolated instances of one language model) labeled every task.</li>
+<li><b>Adjudication.</b> 349 code disagreements and 137 relevance disagreements were resolved by a third instance under written rules.</li>
+<li><b>Cross-checks.</b> Median Cohen's κ across codes is 0.92. A keyword screen independent of the model flags possible misses. Compared with an earlier hand-made matrix, 186 of 285 cells kept their level, 83 went up and 16 went down.</li>
+</ol>
+<ol data-l="zh">
+<li><b>收集。</b>从公开仓库、数据集和论文附录拉取任务清单。11 个 benchmark 是完整清单，6 个是抽样。</li>
+<li><b>编码本。</b>23 个能力码（消息、邮件、日历、浏览器、购物、订票订位、议价、规划、后台监控、主动性、记忆、健康/财务数据、自建工具、5 个安全子码、本机文件、第三方、多模态、自述真实性、故障恢复）。打标签要求任务必须做到该能力或评分明确考核，并附原文证据。</li>
+<li><b>两名独立编码员</b>（同一个语言模型的两个隔离实例）对每个任务标注。</li>
+<li><b>裁决。</b>349 个码分歧和 137 个相关度分歧，由第三个实例按成文规则裁决。</li>
+<li><b>交叉检查。</b>各码 Cohen's κ 的中位数为 0.92；另有一个独立于模型的关键词筛查，标出可能漏标的任务。与更早的手工矩阵相比，285 个格子里 186 个等级不变，83 个上调，16 个下调。</li>
+</ol>
+
+<h2 data-l="en">Benchmarks covered</h2><h2 data-l="zh">覆盖的 benchmark</h2>
+<div class="tw"><table><thead><tr><th>Benchmark</th><th><span data-l="en">Tasks coded / total</span><span data-l="zh">已编码 / 总体</span></th><th><span data-l="en">Coverage</span><span data-l="zh">范围</span></th></tr></thead><tbody><tr><td>LiveClawBench</td><td>134 / 134</td><td><span data-l="en">full list</span><span data-l="zh">完整清单</span></td></tr><tr><td>WildClawBench</td><td>60 / 60</td><td><span data-l="en">full list</span><span data-l="zh">完整清单</span></td></tr><tr><td>ClawsBench</td><td>44 / 44</td><td><span data-l="en">full list</span><span data-l="zh">完整清单</span></td></tr><tr><td>ClawBench</td><td>283 / 283</td><td><span data-l="en">full list</span><span data-l="zh">完整清单</span></td></tr><tr><td>Claw-Eval</td><td>300 / 300</td><td><span data-l="en">full list</span><span data-l="zh">完整清单</span></td></tr><tr><td>Claw-Eval-Live</td><td>105 / 105</td><td><span data-l="en">full list</span><span data-l="zh">完整清单</span></td></tr><tr><td>OpenClaw Arena</td><td>100 / 100</td><td><span data-l="en">full list</span><span data-l="zh">完整清单</span></td></tr><tr><td>OpenClaw pack</td><td>10 / 10</td><td><span data-l="en">full list</span><span data-l="zh">完整清单</span></td></tr><tr><td>PinchBench</td><td>147 / 148</td><td><span data-l="en">full list</span><span data-l="zh">完整清单</span></td></tr><tr><td>π-Bench</td><td>100 / 100</td><td><span data-l="en">full list</span><span data-l="zh">完整清单</span></td></tr><tr><td>SentinelBench</td><td>100 / 100</td><td><span data-l="en">full list</span><span data-l="zh">完整清单</span></td></tr><tr><td>PASB</td><td>85 / 291</td><td><span data-l="en">sample</span><span data-l="zh">抽样</span></td></tr><tr><td>MasDrift</td><td>80 / 600</td><td><span data-l="en">sample</span><span data-l="zh">抽样</span></td></tr><tr><td>AgenticPay</td><td>103 / 234</td><td><span data-l="en">sample</span><span data-l="zh">抽样</span></td></tr><tr><td>PERMA</td><td>120 / 1094</td><td><span data-l="en">sample</span><span data-l="zh">抽样</span></td></tr><tr><td>PersonalWAB</td><td>93 / 9070</td><td><span data-l="en">sample</span><span data-l="zh">抽样</span></td></tr><tr><td>TERMS-Bench</td><td>33 / 33</td><td><span data-l="en">sample</span><span data-l="zh">抽样</span></td></tr></tbody></table></div>
+<p class="mut" data-l="en">PinchBench lists 148 tasks; 147 were retrievable. TERMS-Bench task rows were constructed from the paper's description. ClawBench includes repeated V1/V2 instructions.</p>
+<p class="mut" data-l="zh">PinchBench 官网写 148 个任务，实际取到 147 个。TERMS-Bench 的任务行由论文描述构造。ClawBench 含 V1/V2 的重复指令。</p>
+
+<h2 data-l="en">Limitations</h2><h2 data-l="zh">局限</h2>
+<ul data-l="en">
+<li>Some task texts are truncated or lack grading details (ClawsBench, OpenClaw Arena, Claw-Eval, π-Bench multi-turn). Coverage there is likely underestimated.</li>
+<li>PersonalWAB's user histories are not part of the task text, so its memory coverage is underestimated.</li>
+<li>For sampled benchmarks, "no task found" cannot be extended to the full set.</li>
+<li>The coding measures whether a kind of task exists and is graded. It does not measure task quality or product-level issues.</li>
+<li>Only 3 raw entries were spot-checked against the source repositories; the rest were not re-checked one by one.</li>
+</ul>
+<ul data-l="zh">
+<li>部分任务文本被截断或缺评分细则（ClawsBench、OpenClaw Arena、Claw-Eval、π-Bench 的多轮部分），这些 benchmark 的覆盖多半被低估。</li>
+<li>PersonalWAB 的用户历史不在任务文本里，它的记忆覆盖被低估。</li>
+<li>抽样 benchmark 里"没找到任务"不能外推到全集。</li>
+<li>编码衡量的是"有没有这类任务、评分是否考核"，不衡量任务质量，也不衡量产品级问题。</li>
+<li>只随机抽了 3 个原始条目与源仓库比对，其余没有逐条回查。</li>
+</ul>
+
+<h2 data-l="en">Files</h2><h2 data-l="zh">文件</h2>
+<div class="tw"><table><tbody>
+<tr><td><code>index.html</code></td><td><span data-l="en">This page.</span><span data-l="zh">本页。</span></td></tr>
+<tr><td><code>core_cell_examples.html</code></td><td><span data-l="en">One example task per non-zero cell of the core-task matrix (108 cells).</span><span data-l="zh">core 任务矩阵中每个非零格子的一个示例任务（108 个格子）。</span></td></tr>
+<tr><td><code>benchmark-coding-viewer.html</code></td><td><span data-l="en">Browser for all 1,897 coded tasks.</span><span data-l="zh">全部 1,897 个已编码任务的浏览器。</span></td></tr>
+<tr><td><code>data/01_final_task_coding.csv</code></td><td><span data-l="en">Final codes per task, with each coder's labels and provenance.</span><span data-l="zh">每个任务的最终编码，含两名编码员各自的标注与来源。</span></td></tr>
+<tr><td><code>data/02_cell_evidence.csv</code></td><td><span data-l="en">One row per benchmark × code × task hit, with the quoted evidence (2,185 rows).</span><span data-l="zh">每个"benchmark × 能力码 × 任务"命中一行，含原文证据（2,185 行）。</span></td></tr>
+<tr><td><code>data/03_coverage_matrix.csv</code></td><td><span data-l="en">Coverage matrix: task counts and shares.</span><span data-l="zh">覆盖矩阵：任务数与占比。</span></td></tr>
+<tr><td><code>data/04_disagreement_adjudication_log.csv</code></td><td><span data-l="en">All 486 disagreements with the adjudication reason and rule.</span><span data-l="zh">486 项分歧及裁决理由、适用规则。</span></td></tr>
+<tr><td><code>data/05_intercoder_agreement.csv</code></td><td><span data-l="en">Per-code agreement and Cohen's κ.</span><span data-l="zh">逐码一致率与 Cohen's κ。</span></td></tr>
+<tr><td><code>data/00_codebook_v2.md</code>, <code>data/00_adjudication_rulings.md</code></td><td><span data-l="en">The codebook and the written adjudication rules.</span><span data-l="zh">编码本和成文的裁决规则。</span></td></tr>
+</tbody></table></div>
+<p class="mut" data-l="en">Task texts shown in the two viewers are excerpts of public benchmarks, quoted for research and review. Check each benchmark's own license before reusing them.</p>
+<p class="mut" data-l="zh">两个浏览器页面中的任务文本摘自公开 benchmark，仅用于研究与复核。复用前请查看各 benchmark 自己的许可证。</p>
+</main>
+<script>
+(function(){
+  var html=document.documentElement;
+  function set(l,save){
+    html.setAttribute('lang',l);
+    document.getElementById('b-en').setAttribute('aria-pressed',l==='en');
+    document.getElementById('b-zh').setAttribute('aria-pressed',l==='zh');
+    document.title=l==='zh'?'Awesome Personal Agent Bench（个人 agent 评测覆盖）':'Awesome Personal Agent Bench';
+    if(save){try{localStorage.setItem('apb-lang',l)}catch(e){}try{history.replaceState(null,'','#'+l)}catch(e){}}
+  }
+  var l=null;
+  if(/^#(en|zh)$/.test(location.hash))l=location.hash.slice(1);
+  if(!l){try{l=localStorage.getItem('apb-lang')}catch(e){}}
+  if(l!=='en'&&l!=='zh')l=/^zh/i.test(navigator.language||'')?'zh':'en';
+  set(l,false);
+  document.getElementById('b-en').addEventListener('click',function(){set('en',true)});
+  document.getElementById('b-zh').addEventListener('click',function(){set('zh',true)});
+})();
+</script>
+</body>
+</html>
